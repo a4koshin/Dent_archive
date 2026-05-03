@@ -1,0 +1,16 @@
+model Consent {
+  id        String @id @default(uuid())
+  patientId String
+
+  allowStorage        Boolean @default(true)
+  allowWebsiteDisplay Boolean @default(false)
+
+  consentFileUrl      String?
+  consentFilePublicId String?
+  consentDate         DateTime @default(now())
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
