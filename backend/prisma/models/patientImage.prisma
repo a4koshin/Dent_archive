@@ -1,0 +1,40 @@
+model PatientImage {
+  id           String @id @default(uuid())
+  patientId    String
+  caseId       String
+  uploadedById String
+
+  imageUrl String
+  publicId String?
+
+  imageType ImageType
+  viewType  ViewType?
+  notes     String?
+
+  showOnWebsite Boolean @default(false)
+
+  patient    Patient       @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  case       TreatmentCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  uploadedBy User          @relation("UploadedImages", fields: [uploadedById], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ImageType {
+  BEFORE
+  AFTER
+  PROGRESS
+  XRAY
+  OTHER
+}
+
+enum ViewType {
+  FRONT_VIEW
+  LEFT_SIDE
+  RIGHT_SIDE
+  UPPER_JAW
+  LOWER_JAW
+  SMILE_VIEW
+  CLOSE_UP
+}
