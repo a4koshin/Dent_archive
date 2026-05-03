@@ -1,0 +1,20 @@
+model Patient {
+  id           String          @id @default(uuid())
+  fullName     String
+  phone        String?         @unique
+  gender       Gender?
+  age          Int?
+  address      String?
+  medicalNotes String?
+  images       PatientImage[]
+  cases        TreatmentCase[]
+  consents     Consent[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
