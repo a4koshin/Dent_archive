@@ -1,0 +1,20 @@
+model PublicGallery {
+  id          String       @id @default(uuid())
+  caseId      String
+  title       String
+  description String?
+  beforeImage String
+  afterImage  String
+  status      ContntStatus @default(ACTIVE)
+
+  case TreatmentCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ContntStatus {
+  ACTIVE
+  DRAFT
+  DELETED
+}
